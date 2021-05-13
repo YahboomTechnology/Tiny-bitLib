@@ -1,6 +1,7 @@
 {
 
   "Tinybit.Ultrasonic_Car|block": "超声波返回（cm）",
+  "Tinybit.Ultrasonic_CarV2|block": "microbit|V2|超声波返回（cm）",
   "Tinybit.RGB_Car_Program|block": "车身七彩流水灯",
   "Tinybit.RGB_Car_Big|block": "小车RGB探照灯|选择车灯颜色 %value",
   "Tinybit.RGB_Car_Big2|block": "小车RGB探照灯|红色 %value1|绿色 %value2|蓝色 %value3",
