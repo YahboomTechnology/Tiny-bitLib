@@ -1,6 +1,7 @@
 {
 
   "Tinybit.Ultrasonic_Car|block": "Distance mesurée par ultrasonique (cm)",
+  "Tinybit.Ultrasonic_CarV2|block": "microbit|V2|Distance mesurée par ultrasonique (cm)",
   "Tinybit.RGB_Car_Program|block": "Couleur LED RGB arrière",
   "Tinybit.RGB_Car_Big|block": "Régler couleur LED | RGB avant sur %value",
   "Tinybit.RGB_Car_Big2|block": "Régler couleur LED RGB avant sur |valeur1 %value1|valeur2 %value2|valeur3 %value3",
