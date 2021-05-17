@@ -418,7 +418,7 @@ namespace Tinybit {
 		pins.digitalWritePin(DigitalPin.P16, 0);
 
 		let d = pins.pulseIn(DigitalPin.P15, PulseValue.High, 500 * 58);
-        return  Math.idiv(d / 58)
+        return  Math.idiv(d / 58);
 
     }
 
