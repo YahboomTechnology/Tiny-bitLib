@@ -1,7 +1,7 @@
 
 # Tiny:bit
 
-[Tiny:bit is a small and cute robot car for eductaion](https://category.yahboom.net/products/tinybit)
+[Tiny:bit is a small and cute robot car for programming eductaion](https://category.yahboom.net/products/tinybit)
 
 ## Basic usage
 
