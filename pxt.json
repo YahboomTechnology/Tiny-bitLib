@@ -5,8 +5,8 @@
     "license": "MIT",
     "dependencies": {
         "core": "*",
-        "neopixel": "github:YahboomTechnology/pxt-neopixel",
-        "microphone": "*"
+        "neopixel": "github:YahboomTechnology/pxt-neopixel"
+        
     },
     "files": [
         "README.md",
@@ -18,6 +18,5 @@
     "testFiles": [
         "test.ts"
     ],
-    "public": true,
-    "preferredEditor": "tsprj"
+    "public": true
 }
