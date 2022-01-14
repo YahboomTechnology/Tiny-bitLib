@@ -5,9 +5,8 @@
     "license": "MIT",
     "dependencies": {
         "core": "*",
-        "neopixel": "github:lzty634158/pxt-neopixel"
-	
-
+        "neopixel": "github:lzty634158/pxt-neopixel",
+        "microphone": "*"
     },
     "files": [
         "README.md",
@@ -15,10 +14,10 @@
         "_locales/zh-cn/Tinybit-strings.json",
         "_locales/zh-tw/Tinybit-strings.json",
         "_locales/fr/Tinybit-strings.json"
-
     ],
     "testFiles": [
         "test.ts"
     ],
-    "public": true
+    "public": true,
+    "preferredEditor": "tsprj"
 }
