@@ -4,10 +4,10 @@
         "core": "*",
         "radio": "*",
         "microphone": "*",
-        "tiny-bitlib": "github:pelikhan/tiny-bitlib"
+        "tiny-bitlib": "github:pelikhan/tiny-bitlib",
+        "jacdac": "github:microsoft/pxt-jacdac#v0.10.11"
     },
     "files": [
-        "main.blocks",
         "main.ts",
         "README.md"
     ],
@@ -21,5 +21,5 @@
     "supportedTargets": [
         "microbit"
     ],
-    "preferredEditor": "blocksprj"
+    "preferredEditor": "tsprj"
 }
