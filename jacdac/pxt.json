@@ -5,7 +5,10 @@
         "radio": "*",
         "microphone": "*",
         "tiny-bitlib": "github:pelikhan/tiny-bitlib",
-        "jacdac": "github:microsoft/pxt-jacdac#v0.10.11"
+        "jacdac": "github:microsoft/pxt-jacdac#v0.10.11",
+        "jacdac-reflected-light": "github:microsoft/pxt-jacdac/reflected-light#v0.10.11",
+        "jacdac-motor": "github:microsoft/pxt-jacdac/motor#v0.10.11",
+        "jacdac-led-server": "github:microsoft/pxt-jacdac/led-server#v0.10.11"
     },
     "files": [
         "main.ts",
