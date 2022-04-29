@@ -13,12 +13,24 @@ namespace modules {
      * Yahboom back LEDs
      */
     //% fixedInstance whenUsed block="yahboom back leds"
-    export const yahboomBackLeds = new LedClient("yahboom back LEDs?dev=self&num_pixels=2&variant=stick&svro=0")
+    export const yahboomBackLeds = new LedClient("yahboom back LEDs?dev=self&num_pixels=2&variant=Stick&svro=0")
     /**
      * Yahboom front LEDs
      */
     //% fixedInstance whenUsed block="yahboom front leds"
-    export const yahboomFrontLeds = new LedClient("yahboom front LEDs?dev=self&num_pixels=1&variant=stick&svro=1")
+    export const yahboomFrontLeds = new LedClient("yahboom front LEDs?dev=self&num_pixels=1&variant=Stick&svro=1&leds_per_pixel=2")
+
+    /**
+     * Left line detector
+     */
+    //% fixedInstance whenUsed block="yahboom line left"
+    export const yahboomLineLeft = new ReflectedLightClient("yahboom line left?dev=self&variant=InfraredDigital&svro=0")
+
+    /**
+     * Left line detector
+     */
+    //% fixedInstance whenUsed block="yahboom line right"
+    export const yahboomLineRight = new ReflectedLightClient("yahboom line right?dev=self&variant=InfraredDigital&svro=1")
 }
 
 namespace servers {
@@ -54,7 +66,19 @@ namespace servers {
             )
             const servers: jacdac.Server[] = [
                 ledServer,
-                pwmLedServer
+                pwmLedServer,
+                jacdac.createSimpleSensorServer(jacdac.SRV_REFLECTED_LIGHT,
+                    jacdac.ReflectedLightRegPack.Brightness,
+                    () => Tinybit.Line_Sensor(Tinybit.enPos.LeftState, Tinybit.enLineState.White) ? 1 : 0,
+                    {
+                        variant: jacdac.ReflectedLightVariant.InfraredDigital
+                    }),
+                jacdac.createSimpleSensorServer(jacdac.SRV_REFLECTED_LIGHT,
+                    jacdac.ReflectedLightRegPack.Brightness,
+                    () => Tinybit.Line_Sensor(Tinybit.enPos.RightState, Tinybit.enLineState.White) ? 1 : 0,
+                    {
+                        variant: jacdac.ReflectedLightVariant.InfraredDigital
+                    })
             ]
             return servers
         })

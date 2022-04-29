@@ -1,3 +1,10 @@
 forever(() => {
-    
+    modules.yahboomBackLeds.setAll(0x0f0000)
+    modules.yahboomFrontLeds.setAll(0x0000f0)
+    basic.clearScreen()
+    if (modules.yahboomLineLeft.brightness() > 0)
+        led.plot(0, 1)
+    if (modules.yahboomLineRight.brightness() > 0)
+        led.plot(4, 1)
+    pause(100)
 })
