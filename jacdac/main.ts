@@ -14,6 +14,7 @@ namespace modules {
      */
     //% fixedInstance whenUsed block="yahboom back leds"
     export const yahboomBackLeds = new LedClient("yahboom back LEDs?dev=self&num_pixels=2&variant=Stick&svro=0")
+
     /**
      * Yahboom front LEDs
      */
@@ -51,14 +52,19 @@ namespace servers {
         jacdac.productIdentifier = 0x345f8369
         jacdac.deviceDescription = "Yahboom TinyBit"
         jacdac.startSelfServers(() => {
+            pins.digitalWritePin(DigitalPin.P12, 0)
             const ledServer = new jacdac.LedServer(2, jacdac.LedPixelLayout.RgbGrb,
-                (pixels, brightness) => light.sendWS2812BufferWithBrightness(pixels, DigitalPin.P12, brightness),
+                (pixels, brightness) => {
+                    console.log(pixels.toHex() + " " + brightness)
+                    light.sendWS2812BufferWithBrightness(pixels, DigitalPin.P12, brightness)
+                },
                 {
                     variant: jacdac.LedVariant.Stick
                 }
             )
             const pwmLedServer = new jacdac.LedServer(1, jacdac.LedPixelLayout.RgbRgb,
                 (pixels, brightness) => {
+                    console.log(pixels.toHex() + " " + brightness)
                     setPwmRGB(pixels[0], pixels[1], pixels[2], brightness)
                 }, {
                 variant: jacdac.LedVariant.Stick
