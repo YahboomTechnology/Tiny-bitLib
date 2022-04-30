@@ -13,13 +13,13 @@ namespace modules {
      * Yahboom back LEDs
      */
     //% fixedInstance whenUsed block="yahboom back leds"
-    export const yahboomBackLeds = new LedClient("yahboom back LEDs?dev=self&num_pixels=2&variant=Stick&svro=0")
+    export const yahboomBackLeds = new LedClient("yahboom back LEDs?dev=self&num_pixels=2&variant=Stick&srvo=0")
 
     /**
      * Yahboom front LEDs
      */
     //% fixedInstance whenUsed block="yahboom front leds"
-    export const yahboomFrontLeds = new LedClient("yahboom front LEDs?dev=self&num_pixels=1&variant=Stick&svro=1&leds_per_pixel=2")
+    export const yahboomFrontLeds = new LedClient("yahboom front LEDs?dev=self&num_pixels=1&variant=Stick&srvo=1&leds_per_pixel=2")
 
     /**
      * Left line detector
@@ -32,6 +32,12 @@ namespace modules {
      */
     //% fixedInstance whenUsed block="yahboom line right"
     export const yahboomLineRight = new ReflectedLightClient("yahboom line right?dev=self&variant=InfraredDigital&svro=1")
+
+    /**
+     * Sonar sensor
+     */
+    //% fixedInstance whenUsed block="yahboom sonar"
+    export const yahboolSonar = new DistanceClient("yahboom sonar?dev=self&variant=sonar")
 }
 
 namespace servers {
@@ -53,11 +59,11 @@ namespace servers {
         jacdac.deviceDescription = "Yahboom TinyBit"
         jacdac.startSelfServers(() => {
             pins.digitalWritePin(DigitalPin.P12, 0)
+            pins.setPull(DigitalPin.P12, PinPullMode.PullNone)
             const ledServer = new jacdac.LedServer(2, jacdac.LedPixelLayout.RgbGrb,
-                (pixels, brightness) => {
-                    console.log(pixels.toHex() + " " + brightness)
+                (pixels, brightness) =>
                     light.sendWS2812BufferWithBrightness(pixels, DigitalPin.P12, brightness)
-                },
+                ,
                 {
                     variant: jacdac.LedVariant.Stick
                 }
@@ -83,8 +89,16 @@ namespace servers {
                     jacdac.ReflectedLightRegPack.Brightness,
                     () => Tinybit.Line_Sensor(Tinybit.enPos.RightState, Tinybit.enLineState.White) ? 1 : 0,
                     {
-                        variant: jacdac.ReflectedLightVariant.InfraredDigital
-                    })
+                        variant: jacdac.ReflectedLightVariant.InfraredDigital,
+                        streamingInterval: 100
+                    }),
+                jacdac.createSimpleSensorServer(jacdac.SRV_DISTANCE,
+                    jacdac.DistanceRegPack.Distance,
+                    () => Tinybit.Ultrasonic_Car() * 100, {
+                        variant: jacdac.DistanceVariant.Ultrasonic,
+                        streamingInterval: 100
+                    }
+                )
             ]
             return servers
         })
