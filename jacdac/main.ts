@@ -37,7 +37,13 @@ namespace modules {
      * Sonar sensor
      */
     //% fixedInstance whenUsed block="yahboom sonar"
-    export const yahboolSonar = new DistanceClient("yahboom sonar?dev=self&variant=sonar")
+    export const yahboomSonar = new DistanceClient("yahboom sonar?dev=self&variant=sonar")
+
+    /**
+     * Microphone sound level sensor
+     */
+    //% fixedInstance whenUsed block="yahboom microphone"
+    export const yahboomMicrophone = new SoundLevelClient("yahboom microphone?dev=self")
 }
 
 namespace servers {
@@ -95,10 +101,15 @@ namespace servers {
                 jacdac.createSimpleSensorServer(jacdac.SRV_DISTANCE,
                     jacdac.DistanceRegPack.Distance,
                     () => Tinybit.Ultrasonic_Car() * 100, {
-                        variant: jacdac.DistanceVariant.Ultrasonic,
+                    variant: jacdac.DistanceVariant.Ultrasonic,
+                    streamingInterval: 100
+                }
+                ),
+                jacdac.createSimpleSensorServer(jacdac.SRV_SOUND_LEVEL,
+                    jacdac.SoundLevelRegPack.SoundLevel,
+                    () => Tinybit.Voice_Sensor(), {
                         streamingInterval: 100
-                    }
-                )
+                    })
             ]
             return servers
         })

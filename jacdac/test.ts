@@ -16,7 +16,8 @@ forever(() => {
    // if (modules.yahboomLineRight.brightness() > 0)
     //    led.plot(4, 1)
  //   music.playTone(440, 100)
-    console.logValue(`distance`, modules.yahboolSonar.distance())
+    console.logValue(`distance`, modules.yahboomSonar.distance())
+    console.logValue('sound', modules.yahboomMicrophone.soundLevel())
     pause(500)
 })
 
