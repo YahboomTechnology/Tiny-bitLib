@@ -1,4 +1,5 @@
 forever(() => {
+    led.toggle(0, 0)
     //Tinybit.RGB_Car_Program().showColor(0xff0000)
     modules.yahboomBackLeds.setBrightness(99)
     modules.yahboomFrontLeds.setBrightness(99)
