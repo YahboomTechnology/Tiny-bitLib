@@ -8,6 +8,8 @@ namespace neopixel {
 
 }
 
+namespace userconfig { export const PIN_JACK_TX = 0xdead }
+
 namespace modules {
     /**
      * Yahboom back LEDs
