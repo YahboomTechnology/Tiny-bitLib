@@ -19,6 +19,7 @@ forever(() => {
  //   music.playTone(440, 100)
     console.logValue(`distance`, modules.yahboomSonar.distance())
     console.logValue('sound', modules.yahboomMicrophone.soundLevel())
+    led.plotBarGraph(modules.yahboomMicrophone.soundLevel(), 100)
     pause(500)
 })
 

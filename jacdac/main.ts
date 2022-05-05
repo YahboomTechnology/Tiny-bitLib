@@ -8,6 +8,8 @@ namespace neopixel {
 
 }
 
+// disable Jacdac single wire serial on pin 12
+// as neopixel are already mounted on this pin
 namespace userconfig { export const PIN_JACK_TX = 0xdead }
 
 namespace modules {
@@ -102,14 +104,14 @@ namespace servers {
                     }),
                 jacdac.createSimpleSensorServer(jacdac.SRV_DISTANCE,
                     jacdac.DistanceRegPack.Distance,
-                    () => Tinybit.Ultrasonic_Car() * 100, {
+                    () => Tinybit.Ultrasonic_Car() / 100.0, {
                     variant: jacdac.DistanceVariant.Ultrasonic,
                     streamingInterval: 100
                 }
                 ),
                 jacdac.createSimpleSensorServer(jacdac.SRV_SOUND_LEVEL,
                     jacdac.SoundLevelRegPack.SoundLevel,
-                    () => Tinybit.Voice_Sensor(), {
+                    () => Tinybit.Voice_Sensor() / 400, {
                         streamingInterval: 100
                     })
             ]
