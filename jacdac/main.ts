@@ -35,13 +35,13 @@ namespace modules {
      * Left line detector
      */
     //% fixedInstance whenUsed block="yahboom line left"
-    export const yahboomLineLeft = new ReflectedLightClient("yahboom line left?dev=self&variant=InfraredDigital&svro=0")
+    export const yahboomLineLeft = new ReflectedLightClient("yahboom line left?dev=self&variant=InfraredDigital&svro=0&name=LL")
 
     /**
      * Left line detector
      */
     //% fixedInstance whenUsed block="yahboom line right"
-    export const yahboomLineRight = new ReflectedLightClient("yahboom line right?dev=self&variant=InfraredDigital&svro=1")
+    export const yahboomLineRight = new ReflectedLightClient("yahboom line right?dev=self&variant=InfraredDigital&svro=1&name=LR")
 
     /**
      * Sonar sensor
@@ -103,13 +103,14 @@ namespace servers {
             super(jacdac.SRV_DUAL_MOTORS, {
                 intensityPackFormat: jacdac.DualMotorsRegPack.Enabled
             })
+            this.speed = [0, 0]
             this.on(jacdac.CHANGE, () => this.sync())
         }
 
         handlePacket(pkt: jacdac.JDPacket) {
             this.handleRegValue(pkt, jacdac.DualMotorsReg.Reversible, jacdac.DualMotorsRegPack.Reversible, true)
-
             this.speed = this.handleRegFormat(pkt, jacdac.DualMotorsReg.Speed, jacdac.DualMotorsRegPack.Speed, this.speed)
+            this.sync()
         }
 
         sync() {
@@ -136,8 +137,11 @@ namespace servers {
         jacdac.productIdentifier = 0x345f8369
         jacdac.deviceDescription = "Yahboom TinyBit"
         jacdac.startSelfServers(() => {
+
             pins.digitalWritePin(DigitalPin.P12, 0)
             pins.setPull(DigitalPin.P12, PinPullMode.PullNone)
+            setPwmMotor(CAR_STOP, 0, 0)
+
             const ledServer = new jacdac.LedServer(2, jacdac.LedPixelLayout.RgbGrb,
                 (pixels, brightness) =>
                     light.sendWS2812BufferWithBrightness(pixels, DigitalPin.P12, brightness)
@@ -180,9 +184,12 @@ namespace servers {
                 ),
                 jacdac.createSimpleSensorServer(jacdac.SRV_SOUND_LEVEL,
                     jacdac.SoundLevelRegPack.SoundLevel,
-                    () => Tinybit.Voice_Sensor() / 400, {
-                        streamingInterval: 100
-                    })
+                    () => {
+                        const r = Tinybit.Voice_Sensor() / 400
+                        return isNaN(r) ? undefined : r
+                    }, {
+                    streamingInterval: 100
+                })
             ]
             return servers
         })
