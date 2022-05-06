@@ -1,10 +1,13 @@
+let k = 0
+let dk = 10
 forever(() => {
     led.toggle(0, 0)
+    modules.yahboomMotors.run(k, -k)
     modules.yahboomBackLeds.setBrightness(99)
     modules.yahboomFrontLeds.setBrightness(99)
     modules.yahboomBackLeds.setAll(0x0000ff)
     modules.yahboomFrontLeds.setAll(0xff0000)
-    pause(500)
+    pause(100)
     modules.yahboomBackLeds.setAll(0xff0000)
     modules.yahboomFrontLeds.setAll(0x0000ff)
     //  basic.clearScreen()
@@ -16,7 +19,10 @@ forever(() => {
     console.logValue(`distance`, modules.yahboomSonar.distance())
     console.logValue('sound', modules.yahboomMicrophone.soundLevel())
     led.plotBarGraph(modules.yahboomMicrophone.soundLevel(), 100)
-    pause(500)
+    pause(100)
+    k += dk
+    if (Math.abs(k) > 100)
+        dk = -dk
 })
 
 control.runInBackground(() => {
