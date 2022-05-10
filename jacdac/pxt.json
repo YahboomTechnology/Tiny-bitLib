@@ -6,12 +6,12 @@
         "radio": "*",
         "microphone": "*",
         "tiny-bitlib": "github:pelikhan/tiny-bitlib",
-        "jacdac": "github:microsoft/pxt-jacdac#v0.10.27",
-        "jacdac-reflected-light": "github:microsoft/pxt-jacdac/reflected-light#v0.10.27",
-        "jacdac-led-server": "github:microsoft/pxt-jacdac/led-server#v0.10.27",
-        "jacdac-distance": "github:microsoft/pxt-jacdac/distance#v0.10.27",
-        "jacdac-sound-level": "github:microsoft/pxt-jacdac/sound-level#v0.10.27",
-        "jacdac-dual-motors": "github:microsoft/pxt-jacdac/dual-motors#v0.10.27"
+        "jacdac": "github:microsoft/pxt-jacdac#v0.10.29",
+        "jacdac-reflected-light": "github:microsoft/pxt-jacdac/reflected-light#v0.10.29",
+        "jacdac-led-server": "github:microsoft/pxt-jacdac/led-server#v0.10.29",
+        "jacdac-distance": "github:microsoft/pxt-jacdac/distance#v0.10.29",
+        "jacdac-sound-level": "github:microsoft/pxt-jacdac/sound-level#v0.10.29",
+        "jacdac-dual-motors": "github:microsoft/pxt-jacdac/dual-motors#v0.10.29"
     },
     "files": [
         "main.ts",
@@ -21,7 +21,7 @@
         "test.ts"
     ],
     "targetVersions": {
-        "target": "4.1.30",
+        "target": "4.1.32",
         "targetId": "microbit"
     },
     "supportedTargets": [
