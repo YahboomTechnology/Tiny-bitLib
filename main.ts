@@ -122,6 +122,8 @@ namespace Tinybit {
         pins.i2cWriteBuffer(PWM_ADD, buf);
     }
 
+    let car_flag_old = 0; //0：两电机正转 1：两电机反转 2:左旋 3：右旋
+    let car_flag_new = 0; //0：两电机正转 1：两电机反转 2:左旋 3：右旋
     function setPwmMotor(mode: number, speed1: number, speed2: number): void {
         if (mode < 0 || mode > 6)
             return;
@@ -130,12 +132,21 @@ namespace Tinybit {
         buf[0] = MOTOR;
         switch (mode) { 
             case 0: buf[1] = 0; buf[2] = 0; buf[3] = 0; buf[4] = 0; break;              //stop
-            case 1: buf[1] = speed1; buf[2] = 0; buf[3] = speed2; buf[4] = 0; break;    //run
-            case 2: buf[1] = 0; buf[2] = speed1; buf[3] = 0; buf[4] = speed2; break;    //back
-            case 3: buf[1] = 0; buf[2] = 0; buf[3] = speed2; buf[4] = 0; break;         //left
-            case 4: buf[1] = speed1; buf[2] = 0; buf[3] = 0; buf[4] = 0; break;         //right
-            case 5: buf[1] = 0; buf[2] = speed1; buf[3] = speed2; buf[4] = 0; break;    //tleft
-            case 6: buf[1] = speed1; buf[2] = 0; buf[3] = 0; buf[4] = speed2; break;    //tright
+            case 1: buf[1] = speed1; buf[2] = 0; buf[3] = speed2; buf[4] = 0; car_flag_new = 0; break;    //run
+            case 2: buf[1] = 0; buf[2] = speed1; buf[3] = 0; buf[4] = speed2; car_flag_new = 1; break;    //back
+            case 3: buf[1] = 0; buf[2] = 0; buf[3] = speed2; buf[4] = 0; car_flag_new = 0;      break;    //left
+            case 4: buf[1] = speed1; buf[2] = 0; buf[3] = 0; buf[4] = 0; car_flag_new = 0;      break;    //right
+            case 5: buf[1] = 0; buf[2] = speed1; buf[3] = speed2; buf[4] = 0; car_flag_new = 2; break;    //tleft
+            case 6: buf[1] = speed1; buf[2] = 0; buf[3] = 0; buf[4] = speed2; car_flag_new = 3; break;    //tright
+        }
+        if(car_flag_new != car_flag_old) //上一次状态是正转，这次是反转
+        {
+            let bufff = pins.createBuffer(5);
+            bufff[0] = MOTOR;
+            bufff[1] = 0; bufff[2] = 0; bufff[3] = 0; bufff[4] = 0;
+            pins.i2cWriteBuffer(PWM_ADD, buf);//停止100ms
+            basic.pause(100);
+            car_flag_old = car_flag_new;
         }
         pins.i2cWriteBuffer(PWM_ADD, buf);
     }
@@ -419,6 +430,71 @@ namespace Tinybit {
 
 		let d = pins.pulseIn(DigitalPin.P15, PulseValue.High, 500 * 58);
         return  Math.floor(d / 58);
+
+    }
+
+    //% blockId=Tinybit_motor_pid block="Tinybit_motor_pid|motor_left:%sp_L|motor_right:%sp_R"
+    //% color="#006400"
+    //% weight=87
+    //% sp_L.min=-255 sp_L.max=255  sp_R.min=-255 sp_R.max=255
+    //% blockGap=10
+    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
+    export function car_sport(sp_L:number,sp_R:number)
+    {
+        let buf = pins.createBuffer(5);
+        buf[0] = MOTOR;
+
+        if (sp_L < 0)//反转
+        {
+            buf[1] = 0;
+            buf[2] = -sp_L;
+        }
+        else //正转
+        {
+            buf[1] = sp_L;
+            buf[2] = 0;
+        }
+
+        if (sp_R < 0)//反转
+        {
+            buf[3] = 0;
+            buf[4] = -sp_R;
+        }
+        else //正转
+        {
+            buf[3] = sp_R;
+            buf[4] = 0;
+        }
+
+        if(sp_L>=0 && sp_R>=0) //正、左、右
+        {
+            car_flag_new = 0;
+        }
+        else if(sp_L<0 && sp_R<0)//反
+        {
+            car_flag_new = 1;
+        }
+        else if(sp_L>0 && sp_R<0)//左旋
+        {
+            car_flag_new = 2;
+        }
+        else if(sp_L<0 && sp_R>0)//右旋
+        {
+            car_flag_new = 3;
+        }
+
+
+        if(car_flag_new != car_flag_old) //状态发生变化
+        {
+            let bufff = pins.createBuffer(5);
+            bufff[0] = MOTOR;
+            bufff[1] = 0; bufff[2] = 0; bufff[3] = 0; bufff[4] = 0;
+            pins.i2cWriteBuffer(PWM_ADD, buf);//停止100ms
+            basic.pause(100);
+            car_flag_old = car_flag_new;
+        }
+
+        pins.i2cWriteBuffer(PWM_ADD, buf);
 
     }
 
