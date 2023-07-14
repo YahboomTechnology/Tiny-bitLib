@@ -1,0 +1,31 @@
+{
+    "name": "tiny-bitlib-jacdac",
+    "version": "2.0.9",
+    "dependencies": {
+        "core": "*",
+        "radio": "*",
+        "microphone": "*",
+        "tiny-bitlib": "github:YahboomTechnology/tiny-bitlib",
+        "jacdac": "github:microsoft/pxt-jacdac#v0.10.53",
+        "jacdac-reflected-light": "github:microsoft/pxt-jacdac/reflected-light#v0.10.53",
+        "jacdac-led-server": "github:microsoft/pxt-jacdac/led-server#v0.10.53",
+        "jacdac-distance": "github:microsoft/pxt-jacdac/distance#v0.10.53",
+        "jacdac-sound-level": "github:microsoft/pxt-jacdac/sound-level#v0.10.53",
+        "jacdac-dual-motors": "github:microsoft/pxt-jacdac/dual-motors#v0.10.53"
+    },
+    "files": [
+        "main.ts",
+        "README.md"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "targetVersions": {
+        "target": "4.1.45",
+        "targetId": "microbit"
+    },
+    "supportedTargets": [
+        "microbit"
+    ],
+    "preferredEditor": "tsprj"
+}
