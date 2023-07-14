@@ -1,4 +1,0 @@
-# microphone
-
-The microphone library.
-
