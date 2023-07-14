@@ -1,0 +1,171 @@
+{
+    "name": "core",
+    "description": "The microbit core library",
+    "dependencies": {},
+    "files": [
+        "README.md",
+        "platform.h",
+        "pxt.cpp",
+        "pxt.h",
+        "pxtbase.h",
+        "pxtcore.h",
+        "math.ts",
+        "dal.d.ts",
+        "enums.d.ts",
+        "shims.d.ts",
+        "pxt-core.d.ts",
+        "core.cpp",
+        "pxt-helpers.ts",
+        "helpers.ts",
+        "pxt-python.d.ts",
+        "pxt-python-helpers.ts",
+        "pinscompat.ts",
+        "configkeys.h",
+        "gc.cpp",
+        "codal.cpp",
+        "images.cpp",
+        "basic.cpp",
+        "basic.ts",
+        "icons.ts",
+        "icons.jres",
+        "input.cpp",
+        "input.ts",
+        "gestures.jres",
+        "control.ts",
+        "control.cpp",
+        "controlgc.cpp",
+        "perfcounters.ts",
+        "interval.ts",
+        "gcstats.ts",
+        "console.ts",
+        "game.ts",
+        "led.cpp",
+        "led.ts",
+        "music.cpp",
+        "music.ts",
+        "melodies.ts",
+        "pins.cpp",
+        "pins.ts",
+        "serial.cpp",
+        "serial.ts",
+        "buffer.cpp",
+        "buffer.ts",
+        "json.ts",
+        "poll.ts",
+        "controlmessage.ts",
+        "pxtparts.json",
+        "advmath.cpp",
+        "trig.cpp",
+        "fixed.ts",
+        "templates.ts",
+        "sendbuffer.s",
+        "sendbuffernrf52.s",
+        "sendbufferbrightness.s",
+        "light.cpp",
+        "logo.cpp",
+        "loops.ts",
+        "touchmode.cpp",
+        "soundexpressions.ts",
+        "soundexpressions.cpp",
+        "parts/speaker.svg",
+        "parts/headphone.svg",
+        "playable.ts"
+    ],
+    "testFiles": [],
+    "public": true,
+    "targetVersions": {
+        "target": "6.1.1",
+        "pxt": "8.6.52"
+    },
+    "dalDTS": {
+        "compileServiceVariant": "mbcodal",
+        "includeDirs": [
+            "libraries/codal-core/inc",
+            "libraries/codal-microbit-v2/inc",
+            "libraries/codal-microbit-v2/model",
+            "libraries/codal-microbit-v2/inc/compat",
+            "pxtapp"
+        ],
+        "excludePrefix": [
+            "USB_",
+            "REQUEST_",
+            "LIS3DH_",
+            "FXOS8700_",
+            "MMA8",
+            "LSM303_",
+            "MAG_",
+            "MPU6050_",
+            "REF_TAG_",
+            "HF2_",
+            "PXT_REF_TAG_",
+            "MS_",
+            "SCSI_"
+        ]
+    },
+    "yotta": {
+        "config": {
+            "microbit-dal": {
+                "fiber_user_data": 1,
+                "pxt": 1
+            }
+        },
+        "optionalConfig": {
+            "microbit-dal": {
+                "bluetooth": {
+                    "private_addressing": 0,
+                    "advertising_timeout": 0,
+                    "tx_power": 6,
+                    "dfu_service": 1,
+                    "event_service": 1,
+                    "device_info_service": 1,
+                    "eddystone_url": 1,
+                    "eddystone_uid": 1,
+                    "open": 0,
+                    "pairing_mode": 1,
+                    "whitelist": 1,
+                    "security_level": "SECURITY_MODE_ENCRYPTION_NO_MITM",
+                    "partial_flashing": 1
+                }
+            }
+        },
+        "userConfigs": [
+            {
+                "description": "No Pairing Required: Anyone can connect via Bluetooth.",
+                "config": {
+                    "microbit-dal": {
+                        "bluetooth": {
+                            "open": 1,
+                            "whitelist": 0,
+                            "security_level": null
+                        }
+                    }
+                }
+            },
+            {
+                "description": "JustWorks pairing (default): Pairing is automatic once the pairing is initiated.",
+                "config": {
+                    "microbit-dal": {
+                        "bluetooth": {
+                            "open": 0,
+                            "whitelist": 1,
+                            "security_level": "SECURITY_MODE_ENCRYPTION_NO_MITM"
+                        }
+                    }
+                }
+            },
+            {
+                "description": "Passkey pairing: Pairing requires 6 digit key to pair.",
+                "config": {
+                    "microbit-dal": {
+                        "bluetooth": {
+                            "open": 0,
+                            "whitelist": 1,
+                            "security_level": "SECURITY_MODE_ENCRYPTION_WITH_MITM"
+                        }
+                    }
+                }
+            }
+        ]
+    },
+    "partial": true
+}

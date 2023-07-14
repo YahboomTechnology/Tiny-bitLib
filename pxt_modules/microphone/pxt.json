@@ -1,0 +1,24 @@
+{
+    "name": "microphone",
+    "description": "The microphone library",
+    "dependencies": {
+        "core": "*"
+    },
+    "files": [
+        "README.md",
+        "microphone.cpp",
+        "microphonehw.cpp",
+        "enums.d.ts",
+        "shims.d.ts",
+        "targetoverrides.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "public": true,
+    "targetVersions": {
+        "target": "6.1.1",
+        "pxt": "8.6.52"
+    },
+    "icon": "/static/libs/microphone.png"
+}
